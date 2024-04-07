@@ -1,0 +1,146 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    color: #fff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+header {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 35px;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+.main-menu ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-menu ul a {
+    color: #fff;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.main-menu button {
+    padding: 10px;
+    color: tomato;
+    background-color: #fff;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.plat-du-jour {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Alignement des plats */
+    gap: 20px;
+}
+
+.plat {
+    background-color: #000;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: calc(50% - 20px); /* 50% width for each plat */
+    margin-bottom: 20px;
+}
+
+.plat.salade-cesar,
+.plat.spaghetti-bolognaise {
+    width: 50%; /* 50% width for "Salade César" and "Spaghetti bolognaise" */
+}
+
+.plat img {
+    width: 100%;
+    height: auto;
+}
+
+.plat-info {
+    padding: 20px;
+}
+
+.plat-info h2 {
+    margin-top: 0;
+}
+
+.plat-info p {
+    margin: 10px 0;
+}
+
+.plat-info .prix {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.plat-info .categorie {
+    font-style: italic;
+}
+
+.plat-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.plat-buttons button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #3498db; /* Couleur pour le bouton Détail */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.plat-buttons button:last-child {
+    background-color: #27ae60; /* Couleur pour le bouton Commander */
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    .plat {
+        width: calc(33.33% - 20px); /* 33.33% width for each plat on larger screens */
+    }
+
+    .plat-container {
+        /* Utilisation de Flexbox pour aligner les plats par paires */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}

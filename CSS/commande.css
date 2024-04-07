@@ -1,0 +1,70 @@
+/* CSS pour le formulaire de commande */
+.container {
+ 
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.valider-commande {
+    display: block;
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.valider-commande:hover {
+    background-color: #45a049;
+}
+
+.retour-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Supprimer le soulignement du lien */
+
+}
+
+.retour-button:hover {
+    background-color: #fe0000;
+    color: #f4f4f4;
+    transition: 0.4s;
+}
+
+/* Style pour masquer les éléments */
+.hidden {
+    display: none;
+}
