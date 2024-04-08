@@ -52,7 +52,7 @@ if(isset($_POST['ajouter'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Plat</title>
-    <link rel="stylesheet" href="../CSS/ajout_plat.css"> <!-- Assurez-vous d'inclure votre feuille de style CSS ici -->
+    <link rel="stylesheet" href="../CSS/ajout_plat.css">
 </head>
 <body>
 
@@ -86,7 +86,6 @@ if(isset($_POST['ajouter'])) {
     </div>
 </div>
 
-<!-- Bouton de retour -->
 <div class="button-container">
     <a href="accueil.php"><button>Retour</button></a>
 </div>

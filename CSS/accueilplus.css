@@ -1,3 +1,4 @@
+/* Réinitialisation des styles */
 * {
     padding: 0;
     margin: 0;
@@ -7,6 +8,7 @@
     color: #fff;
 }
 
+/* Styles généraux de la page */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -54,6 +56,7 @@ header {
     cursor: pointer;
 }
 
+/* Styles pour la section "Plats du jour" */
 .plat-du-jour {
     width: 80%;
     margin: auto;
@@ -61,35 +64,34 @@ header {
     margin-bottom: 20px;
 }
 
+/* Styles pour le conteneur des plats */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around; /* Alignement des plats */
+    justify-content: space-around;
     gap: 20px;
 }
 
+/* Styles pour chaque plat */
 .plat {
     background-color: #000;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: calc(50% - 20px); /* 50% width for each plat */
+    width: calc(50% - 20px);
     margin-bottom: 20px;
-}
-
-.plat.salade-cesar,
-.plat.spaghetti-bolognaise {
-    width: 50%; /* 50% width for "Salade César" and "Spaghetti bolognaise" */
 }
 
 .plat img {
     width: 100%;
-    height: auto;
+    height: 200px; /* Définissez une hauteur fixe pour toutes les images des plats */
+    object-fit: cover; /* Assurez-vous que l'image couvre toujours la hauteur spécifiée */
 }
 
+/* Styles pour les informations des plats */
 .plat-info {
     padding: 20px;
 }
@@ -111,6 +113,7 @@ header {
     font-style: italic;
 }
 
+/* Styles pour les boutons des plats */
 .plat-buttons {
     display: flex;
     justify-content: center;
@@ -120,7 +123,7 @@ header {
 .plat-buttons button {
     padding: 10px 20px;
     margin-right: 10px;
-    background-color: #3498db; /* Couleur pour le bouton Détail */
+    background-color: #3498db;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -128,19 +131,83 @@ header {
 }
 
 .plat-buttons button:last-child {
-    background-color: #27ae60; /* Couleur pour le bouton Commander */
-    color: #fff;
+    background-color: #27ae60;
 }
 
+/* Media query pour les écrans plus larges */
 @media (min-width: 768px) {
     .plat {
-        width: calc(33.33% - 20px); /* 33.33% width for each plat on larger screens */
+        width: calc(33.33% - 20px);
     }
 
     .plat-container {
-        /* Utilisation de Flexbox pour aligner les plats par paires */
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
     }
+}
+
+/* Styles pour le bouton "Ajouter un Plat" */
+.add-button  button{
+    margin: 115px 175px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 999;
+    border: none;
+}
+
+.add-button:hover {
+    background-color: #222;
+}
+
+/* Styles pour le slider */
+.slider-container {
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+}
+
+.slider button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    z-index: 1;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
 }

@@ -4,7 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
-    <link rel="stylesheet" href="../CSS/accueil.css">
+    <link rel="stylesheet" href="../CSS/accueilplus.css">
+    <style>
+        /* Styles pour le slider */
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            margin-right: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 200px; /* Définissez une hauteur fixe pour toutes les images des plats */
+            object-fit: cover; /* Assurez-vous que l'image couvre toujours la hauteur spécifiée */
+}
+        }
+
+        .slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover,
+        .next:hover {
+            color: #ccc;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,10 +81,37 @@
             echo '<form method="post" action="deconnexion.php">';
             echo '<button type="submit" name="deconnexion">Se déconnecter</button>';
             echo '</form>';
+        } else {
+            echo '<form method="post" action="deconnexion.php">';
+            echo '<button type="submit" name="deconnexion">Se déconnecter</button>';
+            echo '</form>';
         }
         ?>
     </div>
 </header>
+
+<div class="slider-container">
+    <div class="slider">
+        <?php
+        // Liste des chemins d'accès des images des plats du jour
+        $images_plats_du_jour = [
+            "../IMG/YASSA.jpeg",
+            "../IMG/mafe.jpeg",
+            "../IMG/mbaxal.jpeg",
+            // Ajoutez d'autres images ici si nécessaire
+        ];
+
+        // Affichage des images des plats du jour
+        foreach ($images_plats_du_jour as $image_path) {
+            echo '<div class="slide">';
+            echo '<img src="' . $image_path . '" alt="Plat du Jour">';
+            echo '</div>'; // Fin de slide
+        }
+        ?>
+    </div>
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+</div>
 
 <div class="plat-du-jour">
     <h2>Plats du jour</h2>
@@ -38,15 +119,13 @@
 
 <div class="container">
     <div class="plat-container">
-
         <?php
-        // Informations de connexion à la base de données
+        // Connexion à la base de données
         $serveur = "localhost";
         $utilisateur = "root";
         $mot_de_passe = "772013470aa"; // Mot de passe MySQL
         $base_de_donnees = "cafeteria"; // Nom de la base de données
 
-        // Connexion à la base de données
         $conn = new mysqli($serveur, $utilisateur, $mot_de_passe, $base_de_donnees);
 
         // Vérifier la connexion
@@ -63,7 +142,7 @@
             // Afficher chaque plat avec ses informations
             while ($row = $resultat->fetch_assoc()) {
                 echo '<div class="plat">';
-                // Afficher l'image du plat
+                // Afficher l'image du plat en fonction de son nom
                 if ($row["nom"] === "Spaghetti bolognaise") {
                     // Ajouter l'image spécifique pour "Spaghetti bolognaise"
                     echo '<img src="../IMG/hambourger.jpg" alt="Spaghetti bolognaise">';
@@ -85,6 +164,9 @@
                 } elseif ($row["nom"] === "Expresso") {
                     // Ajouter l'image spécifique pour "Burger classique"
                     echo '<img src="../IMG/cafe.jpg" alt="Maafee TOP">';
+                } elseif ($row["nom"] === "Mbaxal") {
+                    // Ajouter l'image spécifique pour "Burger classique"
+                    echo '<img src="../IMG/mbaxal.jpeg" alt="Maafee TOP">';
                 } else {
                     echo 'Aucune image trouvée';
                 }
@@ -117,7 +199,6 @@
         // Fermer la connexion à la base de données
         $conn->close();
         ?>
-
     </div> <!-- Fin de plat-container -->
 </div> 
 
@@ -138,6 +219,25 @@
         if (confirmation) {
             window.location.href = "supprimer_plat.php?id=" + id;
         }
+    }
+
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000); // Change l'image toutes les 2 secondes (2000 milliseconds)
+    }
+
+    function moveSlide(n) {
+        slideIndex += n;
+        showSlides();
     }
 </script>
 
