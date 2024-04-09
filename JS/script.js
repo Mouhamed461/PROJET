@@ -9,5 +9,5 @@ function showSlides() {
         slideIndex = 0;
     }
     radios[slideIndex].checked = true;
-    setTimeout(showSlides, 5000); // Change toutes les 5 secondes
+    setTimeout(showSlides, 5000); 
 }

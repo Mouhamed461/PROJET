@@ -1,94 +1,90 @@
-<?php
-// Vérifie si l'utilisateur est connecté en tant qu'administrateur
-session_start();
-if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
-    // Redirige vers une page d'erreur ou de connexion si l'utilisateur n'est pas un administrateur
-    header("Location: erreur.php");
-    exit; // Assurez-vous de quitter le script après la redirection
-}
-
-// Vérifie si le formulaire a été soumis
-if(isset($_POST['ajouter'])) {
-    // Assurez-vous que les champs ne sont pas vides
-    if(!empty($_POST['nom']) && !empty($_POST['description']) && !empty($_POST['prix']) && !empty($_POST['categorie'])) {
-        // Connexion à la base de données
-        $serveur = "localhost";
-        $utilisateur = "root";
-        $mot_de_passe = "772013470aa"; // Remplacez "mot_de_passe" par le véritable mot de passe
-        $base_de_donnees = "cafeteria";
-
-        $conn = new mysqli($serveur, $utilisateur, $mot_de_passe, $base_de_donnees);
-
-        // Vérifie la connexion
-        if ($conn->connect_error) {
-            die("La connexion à la base de données a échoué : " . $conn->connect_error);
-        }
-
-        // Préparation de la requête d'insertion avec des paramètres
-        $sql = "INSERT INTO plat (nom, description, prix, categorie) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-
-        // Liaison des valeurs et exécution de la requête
-        $stmt->bind_param("ssds", $_POST['nom'], $_POST['description'], $_POST['prix'], $_POST['categorie']);
-        if ($stmt->execute()) {
-            // Redirige vers la page d'accueil après l'ajout
-            header("Location: accueil.php");
-            exit(); // Assurez-vous de quitter le script après la redirection
-        } else {
-            $message = "Erreur lors de l'ajout du plat : " . $stmt->error;
-        }
-
-        // Ferme la connexion à la base de données
-        $conn->close();
-    } else {
-        $message = "Veuillez remplir tous les champs du formulaire.";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Plat</title>
-    <link rel="stylesheet" href="../CSS/ajout_plat.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .plat-du-jour {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
 
-<div class="plat-du-jour">
-    <h2>Ajouter Plat</h2>
-</div>
-
 <div class="container">
-    <div class="plat-container">
-        <!-- Formulaire d'ajout de plat -->
-       <!-- Formulaire d'ajout de plat avec champ d'ajout d'image -->
-<form method="post" action="ajouter_plat.php" enctype="multipart/form-data">
-    <label for="nom">Nom du plat:</label><br>
-    <input type="text" id="nom" name="nom" required><br>
-
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" required></textarea><br>
-
-    <label for="prix">Prix:</label><br>
-    <input type="text" id="prix" name="prix" required><br>
-
-    <label for="categorie">Catégorie:</label><br>
-    <input type="text" id="categorie" name="categorie" required><br>
-
-    <input type="submit" name="ajouter" value="Ajouter">
-</form>
-        <!-- Affichage du message -->
-        <?php if(isset($message)) { ?>
-            <div class="message"><?php echo $message; ?></div>
-        <?php } ?>
+    <div class="plat-du-jour">
+        <h2>Ajouter Plat</h2>
     </div>
+
+    <form method="post" action="ajouter_plat.php" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom du plat:</label>
+            <input type="text" class="form-control" id="nom" name="nom" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea class="form-control" id="description" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="prix" class="form-label">Prix:</label>
+            <input type="text" class="form-control" id="prix" name="prix" required>
+        </div>
+        <div class="mb-3">
+            <label for="categorie" class="form-label">Catégorie:</label>
+            <input type="text" class="form-control" id="categorie" name="categorie" required>
+        </div>
+        <button type="submit" name="ajouter" class="btn btn-primary">Ajouter</button>
+    </form>
+
+    <?php if(isset($message)) { ?>
+        <div class="alert alert-danger mt-3" role="alert">
+            <?php echo $message; ?>
+        </div>
+    <?php } ?>
 </div>
 
-<div class="button-container">
-    <a href="accueil.php"><button>Retour</button></a>
-</div>
+<a href="accueil.php" class="back-button">Retour</a>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
